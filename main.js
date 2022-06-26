@@ -46,7 +46,44 @@ function gotPoses(results) {
         console.log("rightWristX = " + rightWristX + "rightWristY = " + rightWristY);
 
         leftWristX = results[0].pose.lefWrist.x;
-        leftWristY = results[0].pose.leftWrist.y;
+        leftWristY = Sresults[0].pose.leftWrist.y;
         console.log("leftWristX = " + leftWristX + "leftWristY = " + leftWristY);
     }
+}
+
+function draw() {
+    Image(video, 0, 0, 600, 500);
+
+    song1_status = song1.isPlaying();
+    song2_status = song2.isPlaying();
+
+    fill("#FF0000");
+    stroke("#FF0000");
+
+    if (scoreRightWrist > 0.2) {
+        circle(rightWristX, rightWristY, 20);
+
+        song2.stop();
+
+        if (song1_status == false) {
+            song1.play()
+            document.getElementById("song").innerHTML = "Playing -  Kacha Badam";
+        }
+    }
+    if (scoreLeftWrist > 0.2) {
+        circle(leftWristX, leftWristY, 20);
+
+        song1.stop();
+
+        if (song2_status == false) {
+            song1.play()
+            document.getElementById("song").innerHTML = "Playing -  Legends Never Die";
+        }
+    }
+}
+
+function play() {
+    song.play();
+    song.setVolume(1);
+    song.rate(1);
 }
